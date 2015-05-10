@@ -37,6 +37,7 @@ public class CMOP extends AMOP{
 		for(int i = 0 ;i < chromosomes.size(); i ++){
 			chromosomes.get(i).evaluate(problem);
 		}
+		
 	}
 
 
@@ -96,10 +97,10 @@ public class CMOP extends AMOP{
 
 	@Override
 	void generateInitialPop() {
-		chromosomes = new ArrayList<MoChromosome>(popSize);
+		chromosomes = new ArrayList<CMoChromosome>(popSize);
 		for(int i = 0; i < popSize; i ++)
 		{
-			chromosomes.add(MoChromosome.createChromosome());
+			chromosomes.add(CMoChromosome.createChromosome());
 		}
 	}
 

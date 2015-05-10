@@ -11,7 +11,7 @@ public abstract class AMOP {
 	protected int neighbourSize;
 	protected int objectiveDimesion ;
 	protected AProblem problem;
-	protected List<MoChromosome> chromosomes;
+	protected List<CMoChromosome> chromosomes;
 	
 	abstract void initial();
 	abstract void generateInitialPop();

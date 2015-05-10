@@ -6,14 +6,13 @@ import org.apache.commons.math.random.RandomGenerator;
 
 import problems.AProblem;
 
-public class MoChromosome {
+public class CMoChromosome  {
 	private static int objectiveDimesion;
 	private static int genesDimesion;
 	private double[] genes;
 	private double[] objectiveValue;
 	private double fitnessValue;
 	private static int[][] range;
-	
 	
 	
 	protected RandomDataImpl randomData;
@@ -36,7 +35,7 @@ public class MoChromosome {
 		}
 	}
 	
-	public MoChromosome() {
+	public CMoChromosome() {
 		genesDimesion = AProblem.genesDimesion;
 		objectiveDimesion = AProblem.objectiveDimesion;
 		range = AProblem.range;
@@ -45,8 +44,8 @@ public class MoChromosome {
 		randomData = new RandomDataImpl(randomGenerator);
 	}
 	
-	public static MoChromosome createChromosome() {
-		MoChromosome mc = new MoChromosome();
+	public static CMoChromosome createChromosome() {
+		CMoChromosome mc = new CMoChromosome();
 		mc.randomize();
 		return mc;
 	}
@@ -54,26 +53,5 @@ public class MoChromosome {
 	public void evaluate(AProblem problem){
 		problem.evaluate(genes,objectiveValue);
 	}
-	
-	
-	public int getObjectiveDimesion() {
-		return objectiveDimesion;
-	}
-	public int getGenesDimesion() {
-		return genesDimesion;
-	}
-	public double[] getGenes() {
-		return genes;
-	}
-	public void setGenes(double[] genes) {
-		this.genes = genes;
-	}
-	public double getFitnessValue() {
-		return fitnessValue;
-	}
-	public void setFitnessValue(double fitnessValue) {
-		this.fitnessValue = fitnessValue;
-	}
-	
 	
 }
