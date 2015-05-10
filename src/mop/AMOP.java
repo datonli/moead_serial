@@ -1,16 +1,25 @@
 package mop;
 
+import java.util.List;
+
+import problems.AProblem;
+
+
 public abstract class AMOP {
 	
-	private int popSize;
-	private int neighbourSize;
-	private int iterations;
+	protected int popSize;
+	protected int neighbourSize;
+	protected int objectiveDimesion ;
+	protected AProblem problem;
+	protected List<MoChromosome> chromosomes;
 	
 	abstract void initial();
-	abstract AMOP generateInitialPop();
+	abstract void generateInitialPop();
 	abstract void reproduction();
 	abstract void update();
-	
+	void setProblem(AProblem problem){
+		this.problem = problem;
+	}
 	
 	public int getNeighbourSize() {
 		return neighbourSize;
@@ -24,14 +33,6 @@ public abstract class AMOP {
 	public void setPopSize(int popSize) {
 		this.popSize = popSize;
 	}
-	public int getIterations() {
-		return iterations;
-	}
-	public void setIterations(int iterations) {
-		this.iterations = iterations;
-	}
-	
-	
 	
 	
 }
