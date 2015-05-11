@@ -1,5 +1,7 @@
 package moead;
 
+import java.io.IOException;
+
 import mop.AMOP;
 import mop.CMOP;
 import problems.AProblem;
@@ -8,16 +10,21 @@ import problems.ZDT1;
 public class MOEAD {
 	
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		
-		int popSize = 400;
-		int neighbourSize = 20;
-		int iterations = 200;
+		int popSize = 1000;
+		int neighbourSize = 300;
+		int iterations = 4000;
 		
 		AProblem problem = ZDT1.getInstance();
-		AMOP mop = new CMOP(popSize,neighbourSize);
+		AMOP mop = new CMOP(popSize,neighbourSize,problem);
+//		mop.setProblem(problem);
+		for(int i = 0 ; i < iterations; i ++)
+			mop.updatePop();
 		
-		
+		String filename = "/home/hadoop/experiment/serial_result/moead_new.txt";
+		mop.write2File(filename);
+		System.out.println("done!");
 		
 	}
 	

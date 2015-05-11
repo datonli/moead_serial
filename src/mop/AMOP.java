@@ -1,9 +1,8 @@
 package mop;
 
-import java.util.List;
+import java.io.IOException;
 
 import problems.AProblem;
-
 
 public abstract class AMOP {
 	
@@ -11,28 +10,13 @@ public abstract class AMOP {
 	protected int neighbourSize;
 	protected int objectiveDimesion ;
 	protected AProblem problem;
-	protected List<CMoChromosome> chromosomes;
+	
 	
 	abstract void initial();
 	abstract void generateInitialPop();
-	abstract void reproduction();
-	abstract void update();
-	void setProblem(AProblem problem){
+	public abstract void updatePop();
+	public void setProblem(AProblem problem){
 		this.problem = problem;
 	}
-	
-	public int getNeighbourSize() {
-		return neighbourSize;
-	}
-	public void setNeighbourSize(int neighbourSize) {
-		this.neighbourSize = neighbourSize;
-	}
-	public int getPopSize() {
-		return popSize;
-	}
-	public void setPopSize(int popSize) {
-		this.popSize = popSize;
-	}
-	
-	
+	public abstract void write2File(String fileName) throws IOException ;
 }

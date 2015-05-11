@@ -3,6 +3,8 @@ package mop;
 import org.apache.commons.math.random.RandomData;
 import org.apache.commons.math.random.RandomGenerator;
 
+import problems.AProblem;
+
 
 public abstract class MoChromosome {
 	
@@ -18,7 +20,7 @@ public abstract class MoChromosome {
 
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException(
-				"Chromosome cannot be directlyCannot be cloned, it must be created from a pool");
+				"Chromosome cannot be cloned directly, it must be created from a pool");
 	}
 
 	public abstract void copyTo(MoChromosome copyto) ;
@@ -35,14 +37,16 @@ public abstract class MoChromosome {
 		return Math.sqrt(sum);
 	}
 	
+	public abstract void evaluate(AProblem problem);
+	
 	public abstract void mutate(RandomGenerator rg, double mutationrate);
-
+	public abstract void mutate(double mutationrate);
 	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1,
 			MoChromosome ind2, RandomData randomData);
-
+	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1);
 	public abstract void crossover(MoChromosome ind0, MoChromosome ind1,
 			RandomGenerator randomData);
-
+	public abstract void crossover(MoChromosome ind0, MoChromosome ind1);
 	public abstract String vectorString();
 	
 	public abstract String getParameterString();
