@@ -11,6 +11,9 @@ public class CMoChromosome extends MoChromosome {
 	public static final int id_cx = 20;
 	public static final int id_mu = 20;
 	
+//	private static double seedCount = 0;
+	
+	
 	public static RandomData randomData;
 	public static RandomGenerator randomGenerator;
 	
@@ -214,10 +217,12 @@ public class CMoChromosome extends MoChromosome {
 
 	@Override
 	public void copyTo(MoChromosome copyto) {
-		copyto.range = this.range;
+//		copyto.range = this.range;
 		copyto.fitnessValue = this.fitnessValue;
 		System.arraycopy(objectiveValue, 0, copyto.objectiveValue, 0,
 				objectiveValue.length);
+		System.arraycopy(genes, 0, copyto.genes, 0,
+				genes.length);
 	}
 
 	@Override

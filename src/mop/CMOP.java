@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 
 import problems.AProblem;
 
@@ -166,7 +164,7 @@ public class CMOP extends AMOP{
 				.get(m);
 
 		// generic operation crossover and mutation.
-		MoChromosome offSpring = (MoChromosome)CMoChromosome.createChromosome();
+		MoChromosome offSpring = (MoChromosome)CMoChromosome.getEmptyChromosome();
 		offSpring.diff_xover(chromosome1,chromosome2,chromosome3);
 		offSpring.mutate(1d / offSpring.genesDimesion);
 		return offSpring;
@@ -220,8 +218,8 @@ public class CMOP extends AMOP{
 			offSpring.genes[index] = value;
 		}
 
-		offSpring
-				.mutate(1d / offSpring.genesDimesion);
+		offSpring.mutate(1d / offSpring.genesDimesion);
+//		offSpring.mutate(1d / popSize);
 		return offSpring;
 	}
 
