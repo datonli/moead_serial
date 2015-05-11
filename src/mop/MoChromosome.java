@@ -43,7 +43,7 @@ public abstract class MoChromosome {
 	public abstract void mutate(double mutationrate);
 	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1,
 			MoChromosome ind2, RandomData randomData);
-	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1);
+	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1,MoChromosome ind2);
 	public abstract void crossover(MoChromosome ind0, MoChromosome ind1,
 			RandomGenerator randomData);
 	public abstract void crossover(MoChromosome ind0, MoChromosome ind1);

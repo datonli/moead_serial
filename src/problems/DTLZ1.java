@@ -8,6 +8,11 @@ public class DTLZ1 extends AProblem{
 	private DTLZ1(){
 		genesDimesion = 10;
 		objectiveDimesion = 3;
+		range = new int[genesDimesion][objectiveDimesion];
+		for(int i = 0; i < genesDimesion; i ++){
+			range[i][0] = 0;
+			range[i][1] = 1;
+		}
 	} 
 	
 	public void evaluate(double[] genes, double[] objValue) {
@@ -28,7 +33,7 @@ public class DTLZ1 extends AProblem{
 		return s;
 	}
 
-	public DTLZ1 getInstance() {
+	public static DTLZ1 getInstance() {
 		if(instance == null)
 			instance = new DTLZ1();
 		return instance;

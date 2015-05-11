@@ -10,7 +10,7 @@ public abstract class AMOP {
 	protected int neighbourSize;
 	protected int objectiveDimesion ;
 	protected AProblem problem;
-	
+	protected static AMOP instance;
 	
 	abstract void initial();
 	abstract void generateInitialPop();

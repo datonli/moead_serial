@@ -22,12 +22,18 @@ public class CMOP extends AMOP{
 	protected List<int[]> neighbourTable;
 	protected List<CMoChromosome> chromosomes;
 	
-	public CMOP(int popSize,int neighbourSize,AProblem problem){
+	private CMOP(int popSize,int neighbourSize,AProblem problem){
 		this.popSize = popSize;
 		this.neighbourSize = neighbourSize;
 		this.objectiveDimesion = AProblem.objectiveDimesion;
 		this.problem = problem;
 		initial();
+	}
+	
+	public static AMOP getInstance(int popSize,int neighbourSize,AProblem problem){
+		if(null == instance)
+			instance = new CMOP(popSize,neighbourSize,problem);
+		return instance;
 	}
 	
 	
@@ -137,6 +143,35 @@ public class CMOP extends AMOP{
 		return offSpring;
 	}
 	
+	private MoChromosome diffReproduction(int i){
+		int k, l, m;
+		do
+			k = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+					neighbourSize - 1)];
+		while (k == i);
+		do
+			l = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+					neighbourSize - 1)];
+		while (l == k || l == i);
+		do
+			m = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+					neighbourSize - 1)];
+		while (m == l || m == k || m == i);
+
+		MoChromosome chromosome1 = (MoChromosome)chromosomes
+				.get(k);
+		MoChromosome chromosome2 = (MoChromosome)chromosomes
+				.get(l);
+		MoChromosome chromosome3 = (MoChromosome)chromosomes
+				.get(m);
+
+		// generic operation crossover and mutation.
+		MoChromosome offSpring = (MoChromosome)CMoChromosome.createChromosome();
+		offSpring.diff_xover(chromosome1,chromosome2,chromosome3);
+		offSpring.mutate(1d / offSpring.genesDimesion);
+		return offSpring;
+	}
+	
 	private MoChromosome reproduction(int i) {
 		int k, l, m;
 		do
@@ -202,7 +237,7 @@ public class CMOP extends AMOP{
 
 
 	private void evolveNewInd(int i) {
-		MoChromosome offSpring = reproduction(i);
+		MoChromosome offSpring = diffReproduction(i);
 		improve(i,offSpring);
 		offSpring.evaluate(problem);
 		updateReference(offSpring);

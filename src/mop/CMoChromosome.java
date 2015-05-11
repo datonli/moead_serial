@@ -11,7 +11,7 @@ public class CMoChromosome extends MoChromosome {
 	public static final int id_cx = 20;
 	public static final int id_mu = 20;
 	
-	public static RandomDataImpl randomData;
+	public static RandomData randomData;
 	public static RandomGenerator randomGenerator;
 	
 	public void randomize(RandomData randomData) {
@@ -39,6 +39,10 @@ public class CMoChromosome extends MoChromosome {
 		genes = new double[genesDimesion];
 		randomGenerator = new RanMT();
 		randomData = new RandomDataImpl(randomGenerator);
+	}
+	
+	public static CMoChromosome getEmptyChromosome() {
+		return new CMoChromosome();
 	}
 	
 	public static CMoChromosome createChromosome() {
@@ -88,7 +92,13 @@ public class CMoChromosome extends MoChromosome {
 		}
 		return;
 	}
-
+	
+	@Override
+	public void diff_xover(MoChromosome ind0, MoChromosome ind1,
+			MoChromosome ind2){
+		this.diff_xover(ind0,ind1,ind2,randomData);
+	}
+	
 	public void diff_xover(MoChromosome ind0, MoChromosome ind1,
 			MoChromosome ind2, RandomData randomData) {
 		int nvar = ind0.range.length;
@@ -215,14 +225,4 @@ public class CMoChromosome extends MoChromosome {
 		// TODO Auto-generated method stub
 		this.mutate(randomGenerator,mutationrate);
 	}
-
-	@Override
-	public void diff_xover(MoChromosome ind0, MoChromosome ind1) {
-		// TODO Auto-generated method stub
-//		this.diff_xover(ind0,ind1,(RandomData)randomData);
-	}
-	
-	
-	
-	
 }

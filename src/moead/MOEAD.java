@@ -5,6 +5,7 @@ import java.io.IOException;
 import mop.AMOP;
 import mop.CMOP;
 import problems.AProblem;
+import problems.DTLZ1;
 import problems.ZDT1;
 
 public class MOEAD {
@@ -14,10 +15,10 @@ public class MOEAD {
 		
 		int popSize = 1000;
 		int neighbourSize = 300;
-		int iterations = 4000;
+		int iterations = 10000;
 		
 		AProblem problem = ZDT1.getInstance();
-		AMOP mop = new CMOP(popSize,neighbourSize,problem);
+		AMOP mop = CMOP.getInstance(popSize,neighbourSize,problem);
 //		mop.setProblem(problem);
 		for(int i = 0 ; i < iterations; i ++)
 			mop.updatePop();
