@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math.random.RandomDataImpl;
+
 
 import problems.AProblem;
 
@@ -142,18 +144,35 @@ public class CMOP extends AMOP{
 	}
 	
 	private MoChromosome diffReproduction(int i){
+
+		
 		int k, l, m;
-		do
+		do{
+//			refresh randomData
+			CMoChromosome.randomGenerator = new RanMT(CMoChromosome.seedCount);
+			CMoChromosome.seedCount ++;
+			CMoChromosome.randomData = new RandomDataImpl(CMoChromosome.randomGenerator);
 			k = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
 					neighbourSize - 1)];
+		}
 		while (k == i);
-		do
+		do{
+//			refresh randomData
+			CMoChromosome.randomGenerator = new RanMT(CMoChromosome.seedCount);
+			CMoChromosome.seedCount ++;
+			CMoChromosome.randomData = new RandomDataImpl(CMoChromosome.randomGenerator);
 			l = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
 					neighbourSize - 1)];
+		}
 		while (l == k || l == i);
-		do
+		do{
+//			refresh randomData
+			CMoChromosome.randomGenerator = new RanMT(CMoChromosome.seedCount);
+			CMoChromosome.seedCount ++;
+			CMoChromosome.randomData = new RandomDataImpl(CMoChromosome.randomGenerator);
 			m = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
 					neighbourSize - 1)];
+		}
 		while (m == l || m == k || m == i);
 
 		MoChromosome chromosome1 = (MoChromosome)chromosomes

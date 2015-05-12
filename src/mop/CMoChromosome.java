@@ -11,7 +11,7 @@ public class CMoChromosome extends MoChromosome {
 	public static final int id_cx = 20;
 	public static final int id_mu = 20;
 	
-//	private static double seedCount = 0;
+	static long seedCount = 0;
 	
 	
 	public static RandomData randomData;
@@ -40,7 +40,8 @@ public class CMoChromosome extends MoChromosome {
 		range = AProblem.range;
 		objectiveValue = new double[objectiveDimesion];
 		genes = new double[genesDimesion];
-		randomGenerator = new RanMT();
+		randomGenerator = new RanMT(seedCount);
+		seedCount ++;
 		randomData = new RandomDataImpl(randomGenerator);
 	}
 	
@@ -99,6 +100,10 @@ public class CMoChromosome extends MoChromosome {
 	@Override
 	public void diff_xover(MoChromosome ind0, MoChromosome ind1,
 			MoChromosome ind2){
+//		refresh randomData
+		randomGenerator = new RanMT(seedCount);
+		seedCount ++;
+		randomData = new RandomDataImpl(randomGenerator);
 		this.diff_xover(ind0,ind1,ind2,randomData);
 	}
 	
@@ -125,6 +130,10 @@ public class CMoChromosome extends MoChromosome {
 	}
 
 	public void crossover(MoChromosome p1, MoChromosome p2){
+//		refresh randomData
+		randomGenerator = new RanMT(seedCount);
+		seedCount ++;
+		randomData = new RandomDataImpl(randomGenerator);
 		this.crossover(p1,p2,randomGenerator);
 	}
 	
@@ -217,17 +226,15 @@ public class CMoChromosome extends MoChromosome {
 
 	@Override
 	public void copyTo(MoChromosome copyto) {
-//		copyto.range = this.range;
-		copyto.fitnessValue = this.fitnessValue;
-		System.arraycopy(objectiveValue, 0, copyto.objectiveValue, 0,
-				objectiveValue.length);
-		System.arraycopy(genes, 0, copyto.genes, 0,
-				genes.length);
+		super.copyTo(copyto);
 	}
 
 	@Override
 	public void mutate(double mutationrate) {
-		// TODO Auto-generated method stub
+//		refresh randomData
+		randomGenerator = new RanMT(seedCount);
+		seedCount ++;
+		randomData = new RandomDataImpl(randomGenerator);
 		this.mutate(randomGenerator,mutationrate);
 	}
 }

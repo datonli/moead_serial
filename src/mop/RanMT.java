@@ -21,8 +21,8 @@ public class RanMT extends AbstractRandomGenerator {
 	private int mti; // mti==N+1 means mt[N] is not initialized
 	private int mag01[];
 
-	public RanMT() {
-		this.setSeed(System.currentTimeMillis());
+	public RanMT(long seedCount) {
+		this.setSeed(System.currentTimeMillis()+seedCount);
 	}
 
 	@Override

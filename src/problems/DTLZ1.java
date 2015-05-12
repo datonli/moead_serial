@@ -16,7 +16,12 @@ public class DTLZ1 extends AProblem{
 	} 
 	
 	public void evaluate(double[] genes, double[] objValue) {
-		double g = g(genes);
+		int k = genes.length - objValue.length + 1;
+		double g = 0.0;
+		for(int i = genes.length - k; i < genes.length; i ++){
+			g += Math.pow(genes[i] - 0.5, 2.0) - Math.cos(20.0 * Math.PI * (genes[i] - 0.5));
+		}
+		g = 100 * (k + g);
 		for(int i = 0; i < objValue.length; i ++){
 			objValue[i] = 0.5 * (1.0 + g);
 			for(int j = 0; j < objValue.length - i - 1; j ++){
@@ -34,7 +39,7 @@ public class DTLZ1 extends AProblem{
 		objValue[1] = (1+g)*genes[0]*(1-genes[1]);
 		objValue[2] = (1+g)*(1-genes[0]); 
 	}
-*/
+
 	private double g(double[] genes) {
 		double s = 0;
 		if(genesDimesion != genes.length)
@@ -44,7 +49,7 @@ public class DTLZ1 extends AProblem{
 			s += Math.pow(genes[i]-0.5,2)-Math.cos(20*Math.PI*(genes[i]-0.5));
 		s += 100*(n-2)+100*s;
 		return s;
-	}
+	}*/
 
 	public static DTLZ1 getInstance() {
 		if(instance == null)

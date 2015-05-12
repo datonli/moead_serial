@@ -14,7 +14,7 @@ public class GegerateRandomDataTest {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		randomGenerator = new RanMT();
+		randomGenerator = new RanMT(1);
 		randomData = new RandomDataImpl(randomGenerator);
 		System.out.println(randomData.nextUniform(0,1));
 	}

@@ -23,7 +23,13 @@ public abstract class MoChromosome {
 				"Chromosome cannot be cloned directly, it must be created from a pool");
 	}
 
-	public abstract void copyTo(MoChromosome copyto) ;
+	public void copyTo(MoChromosome copyto) {
+		copyto.fitnessValue = this.fitnessValue;
+		System.arraycopy(objectiveValue, 0, copyto.objectiveValue, 0,
+				objectiveValue.length);
+		System.arraycopy(genes, 0, copyto.genes, 0,
+				genes.length);
+	}
 
 	protected abstract void randomizeParameter(RandomData randomGenerator);
 	
