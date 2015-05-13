@@ -7,7 +7,10 @@ import mop.CMOP;
 import problems.AProblem;
 import problems.DTLZ1;
 import problems.ZDT1;
+import problems.ZDT2;
 import problems.ZDT3;
+import problems.ZDT4;
+import problems.ZDT6;
 
 public class MOEAD {
 	
@@ -18,7 +21,7 @@ public class MOEAD {
 		int neighbourSize = 20;
 		int iterations = 250;
 		
-		AProblem problem = DTLZ1.getInstance();
+		AProblem problem = ZDT6.getInstance();
 		AMOP mop = CMOP.getInstance(popSize,neighbourSize,problem);
 //		mop.setProblem(problem);
 		for(int i = 0 ; i < iterations; i ++)

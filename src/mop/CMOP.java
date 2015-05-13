@@ -148,28 +148,16 @@ public class CMOP extends AMOP{
 		
 		int k, l, m;
 		do{
-//			refresh randomData
-			CMoChromosome.randomGenerator = new RanMT(CMoChromosome.seedCount);
-			CMoChromosome.seedCount ++;
-			CMoChromosome.randomData = new RandomDataImpl(CMoChromosome.randomGenerator);
 			k = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
 					neighbourSize - 1)];
 		}
 		while (k == i);
 		do{
-//			refresh randomData
-			CMoChromosome.randomGenerator = new RanMT(CMoChromosome.seedCount);
-			CMoChromosome.seedCount ++;
-			CMoChromosome.randomData = new RandomDataImpl(CMoChromosome.randomGenerator);
 			l = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
 					neighbourSize - 1)];
 		}
 		while (l == k || l == i);
 		do{
-//			refresh randomData
-			CMoChromosome.randomGenerator = new RanMT(CMoChromosome.seedCount);
-			CMoChromosome.seedCount ++;
-			CMoChromosome.randomData = new RandomDataImpl(CMoChromosome.randomGenerator);
 			m = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
 					neighbourSize - 1)];
 		}
