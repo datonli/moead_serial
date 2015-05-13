@@ -20,7 +20,7 @@ public class MOEAD {
 		
 		int popSize = 100;
 		int neighbourSize = 20;
-		int iterations = 250;
+		int iterations = 1000;
 		
 		AProblem problem = DTLZ2.getInstance();
 		AMOP mop = CMOP.getInstance(popSize,neighbourSize,problem);

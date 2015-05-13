@@ -24,7 +24,7 @@ public class RanMT extends AbstractRandomGenerator {
 	public RanMT(long seedCount) {
 		this.setSeed(System.currentTimeMillis()+seedCount);
 	}
-
+	
 	@Override
 	public double nextDouble() {
 		int y;

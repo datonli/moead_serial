@@ -86,6 +86,13 @@ public class CMOP extends AMOP{
 		return Math.sqrt(sum);
 	}
 	
+	/*private void initWeight() {
+		weights = new ArrayList<double[]>();
+		for (int i = 0; i <= popSize; i++) {
+			double[] weight = new double[objectiveDimesion];
+			for(int j = 0; j < )
+		}
+	}*/
 
 	private void initWeight() {
 		weights = new ArrayList<double[]>();
@@ -263,7 +270,7 @@ public class CMOP extends AMOP{
 			MoChromosome neighbourSolution = chromosomes.get(neighbourIndex);
 			double o = scalarOptimization(neighbourIndex,offSpring);
 			double n = scalarOptimization(neighbourIndex,neighbourSolution);
-			if(o <= n){
+			if(o < n){
 				offSpring.copyTo(neighbourSolution);
 			}
 		}
