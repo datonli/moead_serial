@@ -1,7 +1,5 @@
 package mop;
 
-import org.apache.commons.math.random.RandomData;
-import org.apache.commons.math.random.RandomGenerator;
 
 import problems.AProblem;
 
@@ -31,8 +29,6 @@ public abstract class MoChromosome {
 				genes.length);
 	}
 
-	protected abstract void randomizeParameter(RandomData randomGenerator);
-	
 	public abstract double parameterDistance(MoChromosome another);
 
 	public static double objectiveDistance(MoChromosome ch1, MoChromosome ch2) {
@@ -45,13 +41,8 @@ public abstract class MoChromosome {
 	
 	public abstract void evaluate(AProblem problem);
 	
-	public abstract void mutate(RandomGenerator rg, double mutationrate);
 	public abstract void mutate(double mutationrate);
-	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1,
-			MoChromosome ind2, RandomData randomData);
 	public abstract void diff_xover(MoChromosome ind0, MoChromosome ind1,MoChromosome ind2);
-	public abstract void crossover(MoChromosome ind0, MoChromosome ind1,
-			RandomGenerator randomData);
 	public abstract void crossover(MoChromosome ind0, MoChromosome ind1);
 	public abstract String vectorString();
 	

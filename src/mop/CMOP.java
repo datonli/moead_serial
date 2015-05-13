@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math.random.RandomDataImpl;
-
-
 import problems.AProblem;
 
 public class CMOP extends AMOP{
@@ -131,11 +128,11 @@ public class CMOP extends AMOP{
 	private MoChromosome reproductionByCrossoverMutate(int i){
 		int k, l;
 		do
-			k = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			k = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		while (k == i);
 		do
-			l = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			l = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		while (l == k || l == i);
 		
@@ -155,17 +152,17 @@ public class CMOP extends AMOP{
 		
 		int k, l, m;
 		do{
-			k = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			k = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		}
 		while (k == i);
 		do{
-			l = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			l = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		}
 		while (l == k || l == i);
 		do{
-			m = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			m = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		}
 		while (m == l || m == k || m == i);
@@ -187,15 +184,15 @@ public class CMOP extends AMOP{
 	private MoChromosome reproduction(int i) {
 		int k, l, m;
 		do
-			k = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			k = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		while (k == i);
 		do
-			l = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			l = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		while (l == k || l == i);
 		do
-			m = neighbourTable.get(i)[CMoChromosome.randomData.nextInt(0,
+			m = neighbourTable.get(i)[PRNG.nextInt(0,
 					neighbourSize - 1)];
 		while (m == l || m == k || m == i);
 

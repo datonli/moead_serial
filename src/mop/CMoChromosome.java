@@ -1,9 +1,5 @@
 package mop;
 
-import org.apache.commons.math.random.RandomData;
-import org.apache.commons.math.random.RandomDataImpl;
-import org.apache.commons.math.random.RandomGenerator;
-
 import problems.AProblem;
 
 public class CMoChromosome extends MoChromosome {
@@ -11,25 +7,10 @@ public class CMoChromosome extends MoChromosome {
 	public static final int id_cx = 20;
 	public static final int id_mu = 20;
 	
-	static long seedCount = 0;
-	
-	
-	public static RandomData randomData;
-	public static RandomGenerator randomGenerator;
-	
-	public void randomize(RandomData randomData) {
-		randomizeParameter(randomData);
-		fitnessValue = 0;
-	}
-	
-	private void randomize() {
-		randomizeParameter(randomData);
-		fitnessValue = 0;
-	}
 
-	protected void randomizeParameter(RandomData randomData) {
+	protected void randomizeParameter() {
 		for (int i = 0; i < genesDimesion; i++) {
-			genes[i] = randomData.nextUniform(range[i][0],
+			genes[i] = PRNG.nextDouble(range[i][0],
 					range[i][1]);
 		}
 	}
@@ -40,9 +21,6 @@ public class CMoChromosome extends MoChromosome {
 		range = AProblem.range;
 		objectiveValue = new double[objectiveDimesion];
 		genes = new double[genesDimesion];
-		randomGenerator = new RanMT(seedCount);
-		seedCount ++;
-		randomData = new RandomDataImpl(randomGenerator);
 	}
 	
 	public static CMoChromosome getEmptyChromosome() {
@@ -51,7 +29,7 @@ public class CMoChromosome extends MoChromosome {
 	
 	public static CMoChromosome createChromosome() {
 		CMoChromosome mc = new CMoChromosome();
-		mc.randomize();
+		mc.randomizeParameter();
 		return mc;
 	}
 	
@@ -59,56 +37,11 @@ public class CMoChromosome extends MoChromosome {
 		problem.evaluate(genes,objectiveValue);
 	}
 	
-	public void mutate(RandomGenerator rg, double rate) {
-		double rnd, delta1, delta2, mut_pow, deltaq;
-		double y, yl, yu, val, xy;
-		double eta_m = 20;
-
-		for (int j = 0; j < genesDimesion; j++) {
-			if (rg.nextDouble() <= rate) {
-				y = genes[j];
-				yl = range[j][0];
-				yu = range[j][1];
-
-				delta1 = (y - yl) / (yu - yl);
-				delta2 = (yu - y) / (yu - yl);
-
-				rnd = rg.nextDouble();
-				mut_pow = 1.0 / (eta_m + 1.0);
-				if (rnd <= 0.5) {
-					xy = 1.0 - delta1;
-					val = 2.0 * rnd + (1.0 - 2.0 * rnd)
-							* (Math.pow(xy, (eta_m + 1.0)));
-					deltaq = Math.pow(val, mut_pow) - 1.0;
-				} else {
-					xy = 1.0 - delta2;
-					val = 2.0 * (1.0 - rnd) + 2.0 * (rnd - 0.5)
-							* (Math.pow(xy, (eta_m + 1.0)));
-					deltaq = 1.0 - (Math.pow(val, mut_pow));
-				}
-				y = y + deltaq * (yu - yl);
-				if (y < yl)
-					y = yl;
-				if (y > yu)
-					y = yu;
-				genes[j] = y;
-			}
-		}
-		return;
-	}
+	
 	
 	@Override
 	public void diff_xover(MoChromosome ind0, MoChromosome ind1,
 			MoChromosome ind2){
-//		refresh randomData
-		randomGenerator = new RanMT(seedCount);
-		seedCount ++;
-		randomData = new RandomDataImpl(randomGenerator);
-		this.diff_xover(ind0,ind1,ind2,randomData);
-	}
-	
-	public void diff_xover(MoChromosome ind0, MoChromosome ind1,
-			MoChromosome ind2, RandomData randomData) {
 		int nvar = ind0.range.length;
 		// int idx_rnd = this.randomGenerator.nextInt(nvar);
 		double rate = 0.5;
@@ -121,24 +54,15 @@ public class CMoChromosome extends MoChromosome {
 					* (((CMoChromosome) ind2).genes[n] - ((CMoChromosome) ind1).genes[n]);
 
 			if (genes[n] < lowBound) {
-				genes[n] = randomData.nextUniform(lowBound, upBound);
+				genes[n] = PRNG.nextDouble(lowBound, upBound);
 			}
 			if (genes[n] > upBound) {
-				genes[n] = randomData.nextUniform(lowBound, upBound);
+				genes[n] = PRNG.nextDouble(lowBound, upBound);
 			}
 		}
 	}
-
-	public void crossover(MoChromosome p1, MoChromosome p2){
-//		refresh randomData
-		randomGenerator = new RanMT(seedCount);
-		seedCount ++;
-		randomData = new RandomDataImpl(randomGenerator);
-		this.crossover(p1,p2,randomGenerator);
-	}
 	
-	@Override
-	public void crossover(MoChromosome p1, MoChromosome p2, RandomGenerator rg) {
+	public void crossover(MoChromosome p1, MoChromosome p2){
 		double rand;
 		double y1, y2, yl, yu;
 		double c1, c2;
@@ -148,9 +72,9 @@ public class CMoChromosome extends MoChromosome {
 		CMoChromosome parent1 = (CMoChromosome) p1;
 		CMoChromosome parent2 = (CMoChromosome) p2;
 		int numVariables = p1.range.length;
-		if (rg.nextDouble() <= 1.0) {
+		if (PRNG.nextDouble() <= 1.0) {
 			for (int i = 0; i < numVariables; i++) {
-				if (rg.nextDouble() <= 0.5) {
+				if (PRNG.nextDouble() <= 0.5) {
 					if (Math.abs(parent1.genes[i] - parent2.genes[i]) > EPS) {
 						if (parent1.genes[i] < parent2.genes[i]) {
 							y1 = parent1.genes[i];
@@ -161,7 +85,7 @@ public class CMoChromosome extends MoChromosome {
 						}
 						yl = p1.range[i][0];
 						yu = p1.range[i][1];
-						rand = rg.nextDouble();
+						rand = PRNG.nextDouble();
 						beta = 1.0 + (2.0 * (y1 - yl) / (y2 - y1));
 						alpha = 2.0 - Math.pow(beta, -(eta_c + 1.0));
 						if (rand <= (1.0 / alpha)) {
@@ -190,7 +114,7 @@ public class CMoChromosome extends MoChromosome {
 							c1 = yu;
 						if (c2 > yu)
 							c2 = yu;
-						if (rg.nextDouble() <= 0.5) {
+						if (PRNG.nextDouble() <= 0.5) {
 							genes[i] = c2;
 						} else {
 							genes[i] = c1;
@@ -208,6 +132,7 @@ public class CMoChromosome extends MoChromosome {
 			}
 		}
 	}
+	
 
 	@Override
 	public double parameterDistance(MoChromosome another) {
@@ -231,10 +156,41 @@ public class CMoChromosome extends MoChromosome {
 
 	@Override
 	public void mutate(double mutationrate) {
-//		refresh randomData
-		randomGenerator = new RanMT(seedCount);
-		seedCount ++;
-		randomData = new RandomDataImpl(randomGenerator);
-		this.mutate(randomGenerator,mutationrate);
+		double rnd, delta1, delta2, mut_pow, deltaq;
+		double y, yl, yu, val, xy;
+		double eta_m = 20;
+
+		for (int j = 0; j < genesDimesion; j++) {
+			if (PRNG.nextDouble() <= mutationrate) {
+				y = genes[j];
+				yl = range[j][0];
+				yu = range[j][1];
+
+				delta1 = (y - yl) / (yu - yl);
+				delta2 = (yu - y) / (yu - yl);
+
+				rnd = PRNG.nextDouble();
+				mut_pow = 1.0 / (eta_m + 1.0);
+				if (rnd <= 0.5) {
+					xy = 1.0 - delta1;
+					val = 2.0 * rnd + (1.0 - 2.0 * rnd)
+							* (Math.pow(xy, (eta_m + 1.0)));
+					deltaq = Math.pow(val, mut_pow) - 1.0;
+				} else {
+					xy = 1.0 - delta2;
+					val = 2.0 * (1.0 - rnd) + 2.0 * (rnd - 0.5)
+							* (Math.pow(xy, (eta_m + 1.0)));
+					deltaq = 1.0 - (Math.pow(val, mut_pow));
+				}
+				y = y + deltaq * (yu - yl);
+				if (y < yl)
+					y = yl;
+				if (y > yu)
+					y = yu;
+				genes[j] = y;
+			}
+		}
+		
 	}
+
 }
