@@ -178,6 +178,7 @@ public class CMOP extends AMOP{
 		MoChromosome offSpring = (MoChromosome)CMoChromosome.getEmptyChromosome();
 		offSpring.diff_xover(chromosome1,chromosome2,chromosome3);
 		offSpring.mutate(1d / offSpring.genesDimesion);
+//		offSpring.mutate(1);
 		return offSpring;
 	}
 	

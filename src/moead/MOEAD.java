@@ -22,7 +22,7 @@ public class MOEAD {
 		int neighbourSize = 200;
 		int iterations = 2500;
 		
-		AProblem problem = ZDT3.getInstance();
+		AProblem problem = DTLZ2.getInstance();
 		AMOP mop = CMOP.getInstance(popSize,neighbourSize,problem);
 //		mop.setProblem(problem);
 		for(int i = 0 ; i < iterations; i ++)

@@ -53,11 +53,13 @@ public class CMoChromosome extends MoChromosome {
 					+ rate
 					* (((CMoChromosome) ind2).genes[n] - ((CMoChromosome) ind1).genes[n]);
 
-			if (genes[n] < lowBound) {
-				genes[n] = PRNG.nextDouble(lowBound, upBound);
+			while (genes[n] < lowBound) {
+				double rnd = PRNG.nextDouble(lowBound,upBound);
+				genes[n] = lowBound + rnd * (((CMoChromosome) ind2).genes[n] - lowBound);
 			}
-			if (genes[n] > upBound) {
-				genes[n] = PRNG.nextDouble(lowBound, upBound);
+			while (genes[n] > upBound) {
+				double rnd = PRNG.nextDouble(lowBound,upBound);
+				genes[n] = upBound - rnd * ( upBound - ((CMoChromosome) ind2).genes[n]);
 			}
 		}
 	}
